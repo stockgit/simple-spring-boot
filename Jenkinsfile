@@ -23,6 +23,7 @@ node {
       sh "'${mvnHome}/bin/mvn' clean install"
     }
 
+/*
     stage('Build Docker Image') {
       // build docker image
       dockerImage = docker.build("devopsexample:${env.BUILD_NUMBER}")
@@ -45,5 +46,5 @@ node {
       //      dockerImage.push("latest")
       //  }
 
-    }
+    } */
 }
