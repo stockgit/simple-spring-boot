@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Code Checkout') {
             steps {
-                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
+                git branch: 'jenkin_window', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
             }
         }
         stage('Unit Test') {
@@ -35,7 +35,7 @@ pipeline {
                 //sh 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
                 //bat 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
 
-                echo "Killing the process"
+                //echo "Killing the process"
                 //sh 'sudo -nS kill -9 `sudo -nS lsof -t -i:8433` || true'
                 echo 'start spring boot'
                 bat 'start /min java -jar target/demo-0.0.1-SNAPSHOT.jar &'
