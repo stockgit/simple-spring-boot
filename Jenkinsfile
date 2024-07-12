@@ -4,10 +4,10 @@ node {
     def mvnHome = tool 'maven-3.5.2'
 
     // holds reference to docker image
-    def dockerImage
+    //def dockerImage
     // ip address of the docker private repository(nexus)
 
-    def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
+    //def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
 
     stage('Clone Repo') { // for display purposes
       // Get some code from a GitHub repository
