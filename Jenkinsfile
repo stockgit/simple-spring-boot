@@ -36,16 +36,21 @@ pipeline {
                 sh "mvn clean package -DskipTests"
             }
         } */
-        stage('Clean & Package'){
-            //sh "mvn clean package -DskipTests"
-            bat 'mvn clean package -DskipTests'
-        }
+       stage('Clean & Package'){
+           steps{
+               //sh "mvn clean package -DskipTests"
+               bat 'mvn clean package -DskipTests'
+           }
+       }
 
-        stage("Tests and Deployment") {
+        stage("Tests") {
             steps("Running unit tests") {
               //sh "mvn test -Punit"
               bat 'mvn clean package -DskipTests'
             }
+        }
+
+        stage("Deployment") {
             steps("Deployment") {
               //sh 'nohup mvn spring-boot:run -Dserver.port=8001 &'
               bat 'mvn spring-boot:run -Dserver.port=8001 &'
