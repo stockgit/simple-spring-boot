@@ -30,11 +30,11 @@ pipeline {
         }
         */
 
-        stage('Clean & Package'){
+       /*  stage('Clean & Package'){
             steps{
                 sh "mvn clean package -DskipTests"
             }
-        }
+        } */
 
 
        /*
