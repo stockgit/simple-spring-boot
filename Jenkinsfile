@@ -43,6 +43,13 @@ pipeline {
             }
         }
 
+        stage('Clean & Deploy'){
+            steps{
+                //sh "mvn clean install -DskipTests"
+                bat 'mvn clean install -DskipTests'
+            }
+        }
+
        /*
        stage("Docker Build & Push"){
             steps{
