@@ -1,50 +1,75 @@
-node {
-    // reference to maven
-    // ** NOTE: This 'maven-3.5.2' Maven tool must be configured in the Jenkins Global Configuration.
-    def mvnHome = tool 'maven-3.5.2'
+pipeline {
+    agent any
 
-    // holds reference to docker image
-    //def dockerImage
-    // ip address of the docker private repository(nexus)
-
-    //def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
-
-    stage('Clone Repo') { // for display purposes
-      // Get some code from a GitHub repository
-      git 'https://github.com/stockgit/satib.git'
-      // Get the Maven tool.
-      // ** NOTE: This 'maven-3.5.2' Maven tool must be configured
-      // **       in the global configuration.
-      mvnHome = tool 'maven-3.5.2'
+    tools{
+        jdk 'jdk17'
+        maven 'maven3'
     }
 
-    stage('Build Project') {
-      // build project via maven
-      sh "'${mvnHome}/bin/mvn' clean install"
+    stages {
+        stage('Code Checkout') {
+            steps {
+                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
+            }
+        }
+
+        /*
+        stage('OWASP Dependency Check'){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'db-check'
+                dependencyCheckPublisher pattern: '**//* dependency-check-report.xml'
+            }
+        }
+
+        stage('Sonarqube Analysis') {
+            steps {
+                sh ''' mvn sonar:sonar \
+                    -Dsonar.host.url=http://localhost:9000/ \
+                    -Dsonar.login=squ_9bd7c664e4941bd4e7670a88ed93d68af40b42a3 '''
+            }
+        }
+        */
+
+        stage('Clean & Package'){
+            steps{
+                sh "mvn clean package -DskipTests"
+            }
+        }
+
+
+       /*
+       stage("Docker Build & Push"){
+            steps{
+                script{
+                    withDockerRegistry(credentialsId: 'DockerHub-Token', toolName: 'docker') {
+                        def imageName = "spring-boot-prof-management"
+                        def buildTag = "${imageName}:${BUILD_NUMBER}"
+                        def latestTag = "${imageName}:latest"  // Define latest tag
+
+                        sh "docker build -t ${imageName} -f Dockerfile.final ."
+                        sh "docker tag ${imageName} abdeod/${buildTag}"
+                        sh "docker tag ${imageName} abdeod/${latestTag}"  // Tag with latest
+                        sh "docker push abdeod/${buildTag}"
+                        sh "docker push abdeod/${latestTag}"  // Push latest tag
+                        env.BUILD_TAG = buildTag
+                    }
+
+                }
+            }
+        }
+
+        stage('Vulnerability scanning'){
+            steps{
+                sh " trivy image abdeod/${buildTag}"
+            }
+        }
+
+        stage("Staging"){
+            steps{
+                sh 'docker-compose up -d'
+            }
+        }
+
+         */
     }
-
-/*
-    stage('Build Docker Image') {
-      // build docker image
-      dockerImage = docker.build("devopsexample:${env.BUILD_NUMBER}")
-    }
-
-    stage('Deploy Docker Image'){
-
-      // deploy docker image to nexus
-
-      echo "Docker Image Tag Name: ${dockerImageTag}"
-
-	  sh "docker stop devopsexample"
-
-	  sh "docker rm devopsexample"
-
-	  sh "docker run --name devopsexample -d -p 2222:2222 devopsexample:${env.BUILD_NUMBER}"
-
-	  // docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-      //    dockerImage.push("${env.BUILD_NUMBER}")
-      //      dockerImage.push("latest")
-      //  }
-
-    } */
 }
