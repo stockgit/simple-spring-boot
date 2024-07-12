@@ -46,7 +46,7 @@ pipeline {
         stage("Tests") {
             steps("Running unit tests") {
               //sh "mvn test -Punit"
-              bat 'mvn clean package -DskipTests'
+              bat 'mvn test -Punit'
             }
         }
 
