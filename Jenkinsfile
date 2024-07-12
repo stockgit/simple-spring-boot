@@ -54,7 +54,7 @@ pipeline {
             steps("Deployment") {
               //sh 'nohup mvn spring-boot:run -Dserver.port=8001 &'
               //bat 'mvn spring-boot:run -Dserver.port=8001 &'
-              bat 'mvn spring-boot:run'
+              bat 'nohup mvn spring-boot:run'
             }
         }
         /*
