@@ -38,7 +38,10 @@ pipeline {
         } */
         stage('Clean & Package'){
             steps{
-                sh "mvn clean package -DskipTests"
+                //sh "mvn clean package -DskipTests"
+                withMaven(maven : 'apache-maven-3.6.1') {
+                    bat'mvn clean compile'
+                }
             }
         }
 
