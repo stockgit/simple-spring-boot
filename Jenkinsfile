@@ -12,6 +12,30 @@ pipeline {
                 git branch: 'master', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
             }
         }
+        stage('Unit Test') {
+            steps {
+                // Run your unit tests using Maven
+                echo 'Running unit tests with Maven'
+                //sh 'mvn clean test'
+                bat 'mvn clean test'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Build your Spring Boot application using Maven
+                echo 'Building with Maven'
+                //sh 'mvn clean install'
+                bat 'mvn clean install'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                // Deploy your Spring Boot application to AWS
+                echo 'Deploying to Tomcat'
+                //sh 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
+                bat 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
+            }
+        }
 
         /*
         stage('OWASP Dependency Check'){
@@ -35,14 +59,13 @@ pipeline {
             steps{
                 sh "mvn clean package -DskipTests"
             }
-        } */
+        }
        stage('Clean & Package'){
            steps{
                //sh "mvn clean package -DskipTests"
                bat 'mvn clean package -DskipTests'
            }
        }
-
         stage("Tests") {
             steps("Running unit tests") {
               //sh "mvn test -Punit"
@@ -57,7 +80,6 @@ pipeline {
               bat 'nohup mvn spring-boot:run'
             }
         }
-        /*
         stage('Clean & Package'){
             steps{
                 //sh "mvn clean package -DskipTests"
