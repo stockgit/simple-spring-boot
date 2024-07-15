@@ -12,7 +12,7 @@ pipeline {
                 // Build your Spring Boot application using Maven
                 echo 'Building with Maven'
                 //sh 'mvn clean install'
-                bat 'mvn install'
+                bat 'mvn clean install'
             }
         }
        stage('Docker Compose') {
