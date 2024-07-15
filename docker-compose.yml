@@ -6,4 +6,5 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
+        # Access http://localhost/
         - 80:8082
