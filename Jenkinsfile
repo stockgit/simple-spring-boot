@@ -9,15 +9,23 @@ pipeline {
                 git branch: 'jenkin_window_docker', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
             }
         }
-        stage('Build') {
+        stage('Test') {
             steps {
                 // Build your Spring Boot application using Maven
-                echo 'Building with Maven'
+                echo 'Test with Maven'
                 //sh 'mvn clean install'
-                bat 'mvn clean install'
+                bat 'mvn clean test'
             }
         }
-        stage('Docker Compose') {
+        stage('Package') {
+            steps {
+                // Build your Spring Boot application using Maven
+                echo 'Pa'
+                //sh 'mvn package'
+                bat 'mvn package'
+            }
+        }
+        stage('Deploy to Docker Compose') {
             steps {
                 //sh 'docker-compose up --build -d'
                 bat 'docker-compose up --build -d'
