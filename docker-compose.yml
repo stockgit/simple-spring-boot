@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  api-demo:
+    container_name: demo-api
+    image: demo-api:1
+    ports:
+      - 8082:8082

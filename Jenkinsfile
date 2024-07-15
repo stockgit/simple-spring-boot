@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Code Checkout') {
             steps {
-                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
+                git branch: 'jenkin_window_docker', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
             }
         }
         stage('Unit Test') {
