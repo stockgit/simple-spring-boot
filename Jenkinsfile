@@ -20,7 +20,7 @@ pipeline {
         stage('Package') {
             steps {
                 // Build your Spring Boot application using Maven
-                echo 'Pa'
+                echo 'Package'
                 //sh 'mvn package'
                 bat 'mvn package'
             }
