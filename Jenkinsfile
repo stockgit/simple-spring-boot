@@ -1,13 +1,15 @@
 pipeline {
     agent any
-
+    tools{
+            maven 'maven-3.5.2'
+    }
     stages {
         stage('Pull From Git') {
             steps {
                 git branch: 'jenkin_window_docker', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
             }
         }
-        stage('Maven clean install') {
+        stage('Build') {
             steps {
                 // Build your Spring Boot application using Maven
                 echo 'Building with Maven'
