@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo 'Deploying to Tomcat'
                 //sh 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
-                bat 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
+                bat 'javaw -jar target/demo-0.0.1-SNAPSHOT.jar'
 
             }
 
