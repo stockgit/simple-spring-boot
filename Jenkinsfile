@@ -25,20 +25,15 @@ pipeline {
                 // Build your Spring Boot application using Maven
                 echo 'Building with Maven'
                 //sh 'mvn clean install'
-                bat 'mvn clean install'
+                bat 'mvn install'
             }
         }
         stage('Deploy') {
             steps {
-                // Deploy your Spring Boot application to AWS
-                //echo 'Deploying to Tomcat'
+                echo 'Deploying to Tomcat'
                 //sh 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
-                //bat 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
+                bat 'java -jar target/demo-0.0.1-SNAPSHOT.jar'
 
-                echo "Killing the process"
-                //sh 'sudo -nS kill -9 `sudo -nS lsof -t -i:8433` || true'
-                echo 'start spring boot'
-                bat 'start /min java -jar target/demo-0.0.1-SNAPSHOT.jar &'
             }
 
         }
