@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Code Checkout') {
             steps {
-                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
+                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/stockgit/simple-spring-boot.git'
             }
         }
         stage('Unit Test') {
