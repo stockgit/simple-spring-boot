@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Pull From Git') {
             steps {
-                git branch: 'jenkin_window_docker', changelog: false, poll: false, url: 'https://github.com/stockgit/satib.git'
+                git branch: 'jenkin_window_docker', changelog: false, poll: false, url: 'https://github.com/stockgit/simple-spring-boot.git'
             }
         }
         stage('Test') {
